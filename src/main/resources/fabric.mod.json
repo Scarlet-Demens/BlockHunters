@@ -1,0 +1,36 @@
+{
+    "schemaVersion": 1,
+    "id": "blockhunters",
+    "version": "${version}",
+    "name": "BlockHunters",
+    "description": "",
+    "authors": [
+        "Demens"
+    ],
+    "contact": {},
+    "license": "unlicense",
+    "icon": "assets/blockhunters/icon.png",
+    "environment": "*",
+    "accessWidener" : "blockhunters.accesswidener",
+    "custom": {
+        "loom:injected_interfaces": {
+            "net/minecraft/class_1657": ["org/demens/blockhunters/extension/BlockDisguise"]
+        }
+    },
+    "entrypoints": {
+        "client": [
+            "org.demens.blockhunters.client.BlockHuntersClient"
+        ],
+        "main": [
+            "org.demens.blockhunters.BlockHunters"
+        ]
+    },
+    "mixins": [
+        "blockhunters.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=${loader_version}",
+        "fabric": "*",
+        "minecraft": "${minecraft_version}"
+    }
+}

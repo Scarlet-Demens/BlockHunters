@@ -1,0 +1,21 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "org.demens.blockhunters.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+        "LivingEntityMixin",
+        "PlayerListMixin",
+        "PlayerMixin",
+        "PlayerRendererMixin",
+        "ServerGamePacketListenerImplMixin",
+        "ServerLevelMixin"
+    ],
+    "client": [
+        "CameraMixin",
+        "ClipContextBlockMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+  }
+}
