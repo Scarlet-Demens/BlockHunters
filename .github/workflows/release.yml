@@ -30,7 +30,7 @@ jobs:
         files: ./build/libs/*
         body_path: ${{ github.workspace }}/CHANGELOG.md
     - name: Publish on Modrinth
-    - uses: Kir-Antipov/mc-publish@v3.3
+      uses: Kir-Antipov/mc-publish@v3.3
       with:
         modrinth-id: uCpqmru9
         modrinth-changelog-file: ${{ github.workspace }}/CHANGELOG.md
