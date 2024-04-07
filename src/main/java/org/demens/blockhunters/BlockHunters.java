@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.demens.blockhunters.command.ModCommands;
+import org.demens.blockhunters.registry.CreativeModeTabs;
 import org.demens.blockhunters.registry.Items;
 
 public class BlockHunters implements ModInitializer {
@@ -15,6 +16,7 @@ public class BlockHunters implements ModInitializer {
     public void onInitialize() {
         // Registry
         Items.init();
+        CreativeModeTabs.init();
         ModCommands.init();
     }
 
