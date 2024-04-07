@@ -2,19 +2,27 @@
     "schemaVersion": 1,
     "id": "blockhunters",
     "version": "${version}",
-    "name": "BlockHunters",
+    "name": "Block Hunters",
     "description": "",
     "authors": [
-        "Demens"
+        "Scarlet_Demens"
     ],
-    "contact": {},
-    "license": "unlicense",
+    "contact": {
+        "issues": "https://github.com/Scarlet-Demens/BlockHunters/issues",
+        "sources": "https://github.com/Scarlet-Demens/BlockHunters"
+    },
+    "license": "MIT License",
     "icon": "assets/blockhunters/icon.png",
     "environment": "*",
     "accessWidener" : "blockhunters.accesswidener",
     "custom": {
         "loom:injected_interfaces": {
             "net/minecraft/class_1657": ["org/demens/blockhunters/extension/BlockDisguise"]
+        },
+        "mc-publish": {
+            "dependencies": [
+                "owo(required)"
+            ]
         }
     },
     "entrypoints": {
@@ -31,6 +39,7 @@
     "depends": {
         "fabricloader": ">=${loader_version}",
         "fabric": "*",
-        "minecraft": "${minecraft_version}"
+        "minecraft": "${minecraft_version}",
+        "owo": ">=${owo_version}"
     }
 }

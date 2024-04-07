@@ -19,6 +19,8 @@ repositories {
     }
     mavenCentral()
     maven { url 'https://jitpack.io' }
+    maven { url 'https://maven.wispforest.io' }
+    maven { url "https://maven.terraformersmc.com/releases/" }
 }
 
 spotless {
@@ -39,10 +41,18 @@ dependencies {
         officialMojangMappings()
         parchment("org.parchmentmc.data:parchment-1.19.2:2022.11.27@zip")
     }
+
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // owo-config
+    annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_version}")
+    include "io.wispforest:owo-sentinel:${project.owo_version}"
+
+    // Mod Menu
+    modImplementation("com.terraformersmc:modmenu:4.2.0-beta.2")
 }
 
 processResources {
@@ -54,7 +64,8 @@ processResources {
     filesMatching("fabric.mod.json") {
         expand "version": project.version,
                 "minecraft_version": project.minecraft_version,
-                "loader_version": project.loader_version
+                "loader_version": project.loader_version,
+                "owo_version": project.owo_version
     }
 }
 

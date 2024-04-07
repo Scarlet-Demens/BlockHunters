@@ -1,6 +1,7 @@
 package org.demens.blockhunters.mixin;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -13,6 +14,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.demens.blockhunters.BlockHunters;
+import org.demens.blockhunters.client.BlockHuntersClient;
+import org.demens.blockhunters.config.MainConfigModel;
 import org.demens.blockhunters.extension.BlockDisguise;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -40,7 +43,7 @@ public abstract class PlayerMixin extends LivingEntity implements BlockDisguise 
 
     @Override
     public void blockHunters$setDisguise(BlockState disguise) {
-        if (level.isClientSide())
+        if (level.isClientSide() || !canDisguise(disguise))
             return;
 
         BlockHunters.LOGGER.info("Setting disguise");
@@ -86,6 +89,17 @@ public abstract class PlayerMixin extends LivingEntity implements BlockDisguise 
     @Override
     public boolean blockHunters$hasDisguise() {
         return entityData.get(DATA_PLAYER_HAS_DISGUISE);
+    }
+
+    @Unique
+    private boolean canDisguise(BlockState blockState) {
+        MainConfigModel.ListMode blockListMode = BlockHuntersClient.CONFIG.blockListMode();
+        String disguiseBlockKey = Registry.BLOCK.getKey(blockState.getBlock()).toString();
+        for (String blockKey : BlockHuntersClient.CONFIG.blockList()) {
+            if (blockKey.equals(disguiseBlockKey))
+                return blockListMode == MainConfigModel.ListMode.WHITELIST;
+        }
+        return blockListMode == MainConfigModel.ListMode.BLACKLIST;
     }
 
     @Unique
