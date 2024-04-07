@@ -21,7 +21,7 @@
         },
         "mc-publish": {
             "dependencies": [
-                "owo(required)"
+                "owo-lib(required)"
             ]
         }
     },
