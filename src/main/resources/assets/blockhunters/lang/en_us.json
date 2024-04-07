@@ -1,4 +1,11 @@
 {
     "item.blockhunters.disguise_wand": "Disguise Wand",
-    "itemGroup.blockhunters.block_hunters_tab": "Block Hunters"
+    "itemGroup.blockhunters.block_hunters_tab": "Block Hunters",
+
+    "text.config.blockhunters-config.option.blockListMode": "Block list mode",
+    "text.config.blockhunters-config.option.blockList": "Block list",
+    "text.config.blockhunters-config.option.blockList.tooltip": "Format: namespace:id\nExample: minecraft:grass_block",
+
+    "text.config.blockhunters-config.option.blockListMode.value.blacklist": "Blacklist",
+    "text.config.blockhunters-config.option.blockListMode.value.whitelist": "Whitelist"
 }

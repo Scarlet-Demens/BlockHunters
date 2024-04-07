@@ -1,2 +1,4 @@
-Added:
-- Creative menu
+# Added
+- Creative mode tab
+- Mod Menu config
+- Block blacklist/whitelist
