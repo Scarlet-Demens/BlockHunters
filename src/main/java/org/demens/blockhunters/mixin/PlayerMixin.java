@@ -168,6 +168,8 @@ public abstract class PlayerMixin extends LivingEntity implements BlockDisguise 
         if (level.isClientSide()) {
             if (spawnedBlockPos != BlockPos.ZERO) {
                 BlockState state = level.getBlockState(spawnedBlockPos);
+                // This gets applied to EVERY instance of a certain block when the player disguises as that block
+                // TODO: Don't change state, use something else
                 state.isViewBlocking = Blocks::never;
                 state.isSuffocating = Blocks::never;
                 level.setBlock(spawnedBlockPos, state, 0);
