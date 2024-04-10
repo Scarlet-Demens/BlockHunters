@@ -1,0 +1,43 @@
+{
+    "schemaVersion": 1,
+    "id": "blockhunters",
+    "version": "${version}",
+    "name": "Block Hunters",
+    "description": "",
+    "authors": [
+        "Scarlet_Demens"
+    ],
+    "contact": {
+        "issues": "https://github.com/Scarlet-Demens/BlockHunters/issues",
+        "sources": "https://github.com/Scarlet-Demens/BlockHunters"
+    },
+    "license": "MIT License",
+    "icon": "assets/blockhunters/icon.png",
+    "environment": "*",
+    "custom": {
+        "mc-publish": {
+            "dependencies": [
+                "owo-lib(required)",
+                "architectury-api(required)"
+            ]
+        }
+    },
+    "entrypoints": {
+        "client": [
+            "org.demens.blockhunters.client.BlockHuntersFabricClient"
+        ],
+        "main": [
+            "org.demens.blockhunters.BlockHuntersFabric"
+        ]
+    },
+    "mixins": [
+        "blockhunters.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=${loader_version}",
+        "fabric": "*",
+        "minecraft": "${minecraft_version}",
+        "owo": ">=${owo_version}",
+        "architectury": ">=${architectury_version}"
+    }
+}
