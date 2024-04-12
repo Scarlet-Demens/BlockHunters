@@ -7,6 +7,8 @@
     "blockhunters.midnightconfig.blockListMode": "Block list mode",
     "blockhunters.midnightconfig.blockList": "Block list",
     "blockhunters.midnightconfig.blockList.tooltip": "Format: namespace:id\nExample: minecraft:grass_block",
+    "blockhunters.midnightconfig.smallerPlayerDimensions": "Smaller player dimensions",
+    "blockhunters.midnightconfig.smallerPlayerDimensions.tooltip": "Enable this option to reduce the dimensions of your player entity\nAllows you to fit into smaller spaces more easily while disguised as a block",
 
     "blockhunters.midnightconfig.enum.ListMode.BLACKLIST": "Blacklist",
     "blockhunters.midnightconfig.enum.ListMode.WHITELIST": "Whitelist"

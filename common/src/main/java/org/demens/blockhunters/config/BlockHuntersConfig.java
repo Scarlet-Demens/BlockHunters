@@ -9,6 +9,7 @@ import java.util.List;
 public class BlockHuntersConfig extends MidnightConfig {
     @Entry public static ListMode blockListMode = ListMode.BLACKLIST;
     @Entry public static List<String> blockList = Lists.newArrayList("minecraft:bedrock", "minecraft:grass", "minecraft:tall_grass", "minecraft:dirt_path");
+    @Entry public static boolean smallerPlayerDimensions = false;
 
     public enum ListMode {
         BLACKLIST,
