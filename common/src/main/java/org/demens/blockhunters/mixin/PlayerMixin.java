@@ -247,8 +247,10 @@ public abstract class PlayerMixin extends LivingEntity implements BlockDisguise 
 
     @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
     private void modifyDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> cir) {
-        if (blockHunters$hasDisguise())
-            cir.setReturnValue(EntityDimensions.fixed(1, 1));
+        if (blockHunters$hasDisguise()) {
+            float size = BlockHuntersConfig.smallerPlayerDimensions ? 0.8f : 1;
+            cir.setReturnValue(EntityDimensions.fixed(size, size));
+        }
     }
 
     @Inject(method = "getStandingEyeHeight", at = @At("HEAD"), cancellable = true)
