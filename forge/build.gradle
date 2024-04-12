@@ -31,6 +31,9 @@ dependencies {
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
 
+    // Midnight Lib
+    modImplementation "maven.modrinth:midnightlib:${rootProject.midnightlib_version}-forge"
+
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
@@ -39,7 +42,9 @@ processResources {
     inputs.property "version", project.version
 
     filesMatching("META-INF/mods.toml") {
-        expand "version": project.version
+        expand "version": project.version,
+                "mod_description": project.mod_description,
+                "midnightlib_version": project.midnightlib_version
     }
 }
 
@@ -66,6 +71,10 @@ components.java {
     withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
         skip()
     }
+}
+
+base {
+    archivesName = "${rootProject.archives_base_name}-forge"
 }
 
 publishing {

@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.demens.blockhunters.command.ModCommands;
+import org.demens.blockhunters.config.BlockHuntersConfig;
 import org.demens.blockhunters.registry.CreativeModeTabs;
 import org.demens.blockhunters.registry.Items;
 
@@ -21,6 +22,7 @@ public class BlockHunters {
         Items.init();
         CreativeModeTabs.init();
         ModCommands.init();
+        BlockHuntersConfig.init();
     }
 
     public static ResourceLocation id(String id) {

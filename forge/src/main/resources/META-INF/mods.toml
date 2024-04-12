@@ -8,9 +8,7 @@ modId = "blockhunters"
 version = "${version}"
 displayName = "Block Hunters"
 authors = "Scarlet_Demens"
-description = '''
-Prop Hunt mod.
-'''
+description = "${mod_description}"
 #logoFile = ""
 
 [[dependencies.blockhunters]]
@@ -33,3 +31,16 @@ mandatory = true
 versionRange = "[6.6.92,)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.blockhunters]]
+modId = "midnightlib"
+mandatory = true
+versionRange = "[${midnightlib_version},)"
+ordering = "AFTER"
+side = "BOTH"
+
+[mc-publish]
+dependencies=[
+    "midnightlib(required)",
+    "architectury-api(required)"
+]

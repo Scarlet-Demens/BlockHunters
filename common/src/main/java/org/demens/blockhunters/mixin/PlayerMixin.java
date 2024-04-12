@@ -92,9 +92,9 @@ public abstract class PlayerMixin extends LivingEntity implements BlockDisguise 
 
     @Unique
     private boolean canDisguise(BlockState blockState) {
-        BlockHuntersConfig.ListMode blockListMode = BlockHuntersConfig.getBlockListMode();
+        BlockHuntersConfig.ListMode blockListMode = BlockHuntersConfig.blockListMode;
         String disguiseBlockKey = Registry.BLOCK.getKey(blockState.getBlock()).toString();
-        for (String blockKey : BlockHuntersConfig.getBlockList()) {
+        for (String blockKey : BlockHuntersConfig.blockList) {
             if (blockKey.equals(disguiseBlockKey))
                 return blockListMode == BlockHuntersConfig.ListMode.WHITELIST;
         }
