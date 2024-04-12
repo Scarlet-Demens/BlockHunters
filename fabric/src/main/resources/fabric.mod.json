@@ -3,7 +3,7 @@
     "id": "blockhunters",
     "version": "${version}",
     "name": "Block Hunters",
-    "description": "",
+    "description": "${mod_description}",
     "authors": [
         "Scarlet_Demens"
     ],
@@ -11,13 +11,13 @@
         "issues": "https://github.com/Scarlet-Demens/BlockHunters/issues",
         "sources": "https://github.com/Scarlet-Demens/BlockHunters"
     },
-    "license": "MIT License",
+    "license": "MIT",
     "icon": "assets/blockhunters/icon.png",
     "environment": "*",
     "custom": {
         "mc-publish": {
             "dependencies": [
-                "owo-lib(required)",
+                "midnightlib(required)",
                 "architectury-api(required)"
             ]
         }
@@ -37,7 +37,7 @@
         "fabricloader": ">=${loader_version}",
         "fabric": "*",
         "minecraft": "${minecraft_version}",
-        "owo": ">=${owo_version}",
+        "midnightlib": ">=${midnightlib_version}",
         "architectury": ">=${architectury_version}"
     }
 }

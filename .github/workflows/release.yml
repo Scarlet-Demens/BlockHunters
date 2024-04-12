@@ -13,6 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
@@ -24,15 +25,30 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: ./gradlew build
+
     - name: Release on GitHub
       uses: softprops/action-gh-release@v2
       with:
-        files: ./build/libs/*
+        files: |
+          ./fabric/build/libs/!(*-@(dev|sources|javadoc|shadow)).jar
+          ./forge/build/libs/!(*-@(dev|sources|javadoc|shadow)).jar
         body_path: ${{ github.workspace }}/CHANGELOG.md
-    - name: Publish on Modrinth
+
+    - name: Publish on Modrinth (fabric)
       uses: Kir-Antipov/mc-publish@v3.3
       with:
         modrinth-id: uCpqmru9
         modrinth-changelog-file: ${{ github.workspace }}/CHANGELOG.md
         modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+        loaders: fabric
+        files: ./fabric/build/libs/!(*-@(dev|sources|javadoc|shadow)).jar
+
+    - name: Publish on Modrinth (forge)
+      uses: Kir-Antipov/mc-publish@v3.3
+      with:
+        modrinth-id: uCpqmru9
+        modrinth-changelog-file: ${{ github.workspace }}/CHANGELOG.md
+        modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+        loaders: forge
+        files: ./forge/build/libs/!(*-@(dev|sources|javadoc|shadow)).jar
 

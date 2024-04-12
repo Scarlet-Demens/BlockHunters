@@ -14,6 +14,7 @@ architectury {
 
 subprojects {
     apply plugin: "dev.architectury.loom"
+    apply plugin: "com.diffplug.spotless"
 
     loom {
         silentMojangMappingsLicense()
@@ -21,9 +22,20 @@ subprojects {
 
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+
         mappings loom.layered() {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-1.19.2:2022.11.27@zip")
+            parchment("org.parchmentmc.data:parchment-${rootProject.parchment_version}")
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        dependsOn(tasks.getByName("spotlessApply"))
+    }
+
+    spotless {
+        java {
+            removeUnusedImports()
         }
     }
 }
@@ -49,6 +61,7 @@ allprojects {
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.wispforest.io' }
         maven { url "https://maven.terraformersmc.com/releases/" }
+        maven { url "https://api.modrinth.com/maven" }
     }
 
     tasks.withType(JavaCompile) {
@@ -58,11 +71,5 @@ allprojects {
 
     java {
         withSourcesJar()
-    }
-}
-
-spotless {
-    java {
-        removeUnusedImports()
     }
 }

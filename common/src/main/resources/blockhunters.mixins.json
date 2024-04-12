@@ -7,13 +7,13 @@
         "LivingEntityMixin",
         "PlayerListMixin",
         "PlayerMixin",
-        "PlayerRendererMixin",
         "ServerGamePacketListenerImplMixin",
         "ServerLevelMixin"
     ],
     "client": [
         "CameraMixin",
-        "ClipContextBlockMixin"
+        "ClipContextBlockMixin",
+        "PlayerRendererMixin"
     ],
     "injectors": {
         "defaultRequire": 1
