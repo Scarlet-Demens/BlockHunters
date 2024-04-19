@@ -1,7 +1,7 @@
 package org.demens.blockhunters;
 
 import com.google.common.base.Suppliers;
-import dev.architectury.registry.registries.RegistrarManager;
+import dev.architectury.registry.registries.@registry@;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 public class BlockHunters {
     public static final String MODID = "blockhunters";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
-    public static final Supplier<RegistrarManager> REGISTRIES = Suppliers.memoize(() -> RegistrarManager.get(MODID));
+    public static final Supplier<@registry@> REGISTRIES = Suppliers.memoize(() -> @registry@.get(MODID));
 
     public static void init() {
         // Registry

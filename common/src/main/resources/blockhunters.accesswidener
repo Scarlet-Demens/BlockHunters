@@ -13,3 +13,5 @@ accessible field net/minecraft/world/level/block/state/BlockBehaviour$BlockState
 mutable field net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase isSuffocating Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
 
 accessible method net/minecraft/world/level/block/Blocks never (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z
+
+accessible field net/minecraft/world/entity/Entity level Lnet/minecraft/world/level/Level;

@@ -2,7 +2,7 @@ package org.demens.blockhunters.registry;
 
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.@registry_package@;
 import net.minecraft.world.item.Item;
 import org.demens.blockhunters.BlockHunters;
 import org.demens.blockhunters.item.DisguiseWandItem;
@@ -11,9 +11,9 @@ import java.util.function.Supplier;
 
 public class Items {
     // Registry
-    private static final Registrar<Item> ITEMS = BlockHunters.REGISTRIES.get().get(Registries.ITEM);
+    private static final Registrar<Item> ITEMS = BlockHunters.REGISTRIES.get().get(@registry@.@registry_name@);
     // Items
-    public static final RegistrySupplier<Item> DISGUISE_WAND = register("disguise_wand", () -> new DisguiseWandItem(new Item.Properties().stacksTo(1).arch$tab(CreativeModeTabs.BLOCK_HUNTERS_TAB)));
+    public static final RegistrySupplier<Item> DISGUISE_WAND = register("disguise_wand", () -> new DisguiseWandItem(new Item.Properties().stacksTo(1).@tab@(CreativeModeTabs.BLOCK_HUNTERS_TAB)));
     private static RegistrySupplier<Item> register(String name, Supplier<Item> item) {
         return ITEMS.register(BlockHunters.id(name), item);
     }

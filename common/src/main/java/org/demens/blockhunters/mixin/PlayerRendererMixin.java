@@ -59,12 +59,12 @@ public class PlayerRendererMixin extends LivingEntityRenderer<AbstractClientPlay
         if (blockState == null || !((BlockDisguise) playerEntity).blockHunters$getDisguiseVisible() || blockState.getRenderShape() != RenderShape.MODEL)
             return;
 
-        Level level = entity.getLevel();
+        Level level = entity.level();
         if (blockState == level.getBlockState(entity.blockPosition()) || blockState.getRenderShape() == RenderShape.INVISIBLE)
             return;
 
         poseStack.pushPose();
-        BlockPos blockPos = new BlockPos(entity.getX(), entity.getBoundingBox().maxY, entity.getZ());
+        BlockPos blockPos = new BlockPos(entity.getBlockX(), (int)entity.getBoundingBox().maxY, entity.getBlockZ());
         poseStack.translate(-0.5, 0.0, -0.5);
         dispatcher.getModelRenderer().tesselateBlock(level, this.dispatcher.getBlockModel(blockState), blockState, blockPos, poseStack, buffer.getBuffer(ItemBlockRenderTypes.getMovingBlockRenderType(blockState)), false, RandomSource.create(), blockState.getSeed(BlockPos.ZERO), OverlayTexture.NO_OVERLAY);
         poseStack.popPose();

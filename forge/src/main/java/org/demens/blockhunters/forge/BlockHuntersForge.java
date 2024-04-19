@@ -6,7 +6,6 @@ import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.demens.blockhunters.BlockHunters;
 
 @Mod(BlockHunters.MODID)
 public class BlockHuntersForge {

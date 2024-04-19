@@ -1,5 +1,6 @@
 import groovy.json.JsonSlurper
 import groovy.xml.XmlSlurper
+import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
@@ -11,6 +12,8 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
+rootProject.ext.mc_version_main = minecraft_version.split("\\.")[1] as int
+rootProject.ext.above_1_19_3 = (mc_version_main > 19 || minecraft_version == "1.19.4")
 rootProject.ext.fabric_loader_version = getJson("https://meta.fabricmc.net/v2/versions/loader/${rootProject.minecraft_version}")[0].loader.version
 rootProject.ext.fabric_api_version = getModrinthVersion("fabric-api", minecraft_version, "fabric")
 rootProject.ext.forge_version = minecraft_version + "-" + getJson("https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json")["promos"][minecraft_version + "-latest"]
@@ -83,6 +86,57 @@ allprojects {
     java {
         withSourcesJar()
     }
+}
+
+tasks.register('setupFiles') {
+    outputs.upToDateWhen { false }
+
+    System.println("Minecraft version: ${minecraft_version} (${mc_version_main})")
+
+    copy {
+        from "common/src/main/BlockHuntersTemp.java"
+        into "common/src/main/java/org/demens/blockhunters"
+        filter(ReplaceTokens, tokens: ["registry": above_1_19_3 ? "RegistrarManager" : "Registries"])
+        rename("(.+)Temp.java", "\$1.java")
+    }
+
+    copy {
+        from "common/src/main/ServerLevelMixinTemp.java"
+        into "common/src/main/java/org/demens/blockhunters/mixin"
+        filter(ReplaceTokens, tokens: [
+                "vector_package": above_1_19_3 ? "org.joml.Vector3f" : "com.mojang.math.Vector3f",
+                "convert_vec3": above_1_19_3 ? ".toVector3f()" : "",
+                "color_package": above_1_19_3 ? "MapColor" : "MaterialColor",
+                "get_color": above_1_19_3 ? "getMapColor(getLevel(), pos)" : "getMaterial().getColor()"
+        ])
+        rename("(.+)Temp.java", "\$1.java")
+    }
+
+    copy {
+        from "common/src/main/ItemsTemp.java"
+        into "common/src/main/java/org/demens/blockhunters/registry"
+        filter(ReplaceTokens, tokens: [
+                "registry_package": above_1_19_3 ? "registries.Registries" : "Registry",
+                "registry": above_1_19_3 ? "Registries" : "Registry",
+                "registry_name": above_1_19_3 ? "ITEM" : "ITEM_REGISTRY",
+                "tab": above_1_19_3 ? "arch\$tab" : "tab"
+        ])
+        rename("(.+)Temp.java", "\$1.java")
+    }
+
+    copy {
+        from "common/src/main/CreativeModeTabsTemp.java"
+        into "common/src/main/java/org/demens/blockhunters/registry"
+        filter(ReplaceTokens, tokens: [
+                "id_package": above_1_19_3 ? "net.minecraft.network.chat.Component" : "org.demens.blockhunters.BlockHunters",
+                "id": above_1_19_3 ? "Component.translatable(\"itemGroup.blockhunters.block_hunters_tab\")" : "BlockHunters.id(\"block_hunters_tab\")",
+        ])
+        rename("(.+)Temp.java", "\$1.java")
+    }
+}
+
+build {
+    dependsOn(tasks.named("setupFiles"))
 }
 
 static Object getJson(String url) {
