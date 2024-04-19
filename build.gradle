@@ -1,12 +1,23 @@
+import groovy.json.JsonSlurper
+import groovy.xml.XmlSlurper
+
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.3-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
     id 'maven-publish'
     id "com.diffplug.spotless" version "6.25.0"
 }
 
 version = project.mod_version
 group = project.maven_group
+
+rootProject.ext.fabric_loader_version = getJson("https://meta.fabricmc.net/v2/versions/loader/${rootProject.minecraft_version}")[0].loader.version
+rootProject.ext.fabric_api_version = getModrinthVersion("fabric-api", minecraft_version, "fabric")
+rootProject.ext.forge_version = minecraft_version + "-" + getJson("https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json")["promos"][minecraft_version + "-latest"]
+rootProject.ext.midnightlib_version = getModrinthVersion("midnightlib", minecraft_version, "fabric").toString().replace("-fabric", "")
+rootProject.ext.parchment_version = getXml("https://ldtteam.jfrog.io/artifactory/parchmentmc-internal/org/parchmentmc/data/parchment-${minecraft_version}/maven-metadata.xml").versioning.release
+rootProject.ext.mod_menu_version = getModrinthVersion("modmenu", minecraft_version, "fabric")
+rootProject.ext.architectury_version = getModrinthVersion("architectury-api", minecraft_version, "fabric").toString().replace("+fabric", "")
 
 architectury {
     minecraft = rootProject.minecraft_version
@@ -25,7 +36,7 @@ subprojects {
 
         mappings loom.layered() {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${rootProject.parchment_version}")
+            parchment("org.parchmentmc.data:parchment-${minecraft_version}:${parchment_version}@zip")
         }
     }
 
@@ -72,4 +83,24 @@ allprojects {
     java {
         withSourcesJar()
     }
+}
+
+static Object getJson(String url) {
+    def slurper = new JsonSlurper()
+    def result = slurper.parse(url.toURL())
+    return result
+}
+
+static Object getXml(String url) {
+    def slurper = new XmlSlurper()
+    slurper.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
+    def result = slurper.parse(url)
+    return result
+}
+
+static Object getModrinthVersion(String projectId, String mcVersion, String loader) {
+    def slurper = new JsonSlurper()
+    def url = new URL("https://api.modrinth.com/v2/project/${projectId}/version?game_versions=[%22${mcVersion}%22]&loaders=[%22${loader}%22]")
+    def result = slurper.parse(url)
+    return result[0].version_number
 }
